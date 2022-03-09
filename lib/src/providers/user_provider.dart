@@ -5,10 +5,8 @@ import '../models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   User? _user;
-
-  bool get existUser => _user != null;
-
-  void setUser(User user){
+  User? get user => _user;
+  set user(User? user) {
     _user = user;
     notifyListeners();
   }
@@ -26,6 +24,4 @@ class UserProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  User? getUser() => _user; //-Se podria pasar la copia si no se quiere que se modifique
 }

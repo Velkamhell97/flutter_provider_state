@@ -7,8 +7,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final user = userProvider.getUser();
+    final user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
       appBar: AppBar(
@@ -17,18 +16,22 @@ class HomePage extends StatelessWidget {
           IconButton(
             onPressed: () => Navigator.of(context).pushNamed('/detail'), 
             icon: const Icon(Icons.arrow_forward)
+          ),
+          IconButton(
+            onPressed: () => Provider.of<UserProvider>(context, listen: false).user = null, 
+            icon: const Icon(Icons.exit_to_app)
           )
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: !userProvider.existUser ? const Center(
+        child: user == null ? const Center(
           child: Text('There is not loaded user')
         ) : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('General', style: Theme.of(context).textTheme.titleLarge),
-            ListTile(title: Text('Name: ${user!.name}')),
+            ListTile(title: Text('Name: ${user.name}')),
             ListTile(title: Text('Age: ${user.age ?? ''}')),
 
             const SizedBox(height: 10.0),

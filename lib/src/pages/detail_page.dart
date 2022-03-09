@@ -80,11 +80,10 @@ class DetailPage extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     
     final userProvider = Provider.of<UserProvider>(context);
-    final user = userProvider.getUser();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(user?.name ?? 'Detail Page'),
+        title: Text(userProvider.user?.name ?? 'Detail Page'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -105,7 +104,7 @@ class DetailPage extends StatelessWidget {
                   final name = await _showNameDialog(context);
 
                   if(name != null){
-                    userProvider.setUser(User(name: name));
+                    userProvider.user = User(name: name, birthday: DateTime(1997, 10, 17), professions: ['Electronic Engineer']);
                   }
                 }, 
                 child: const Text('Set User')
